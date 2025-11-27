@@ -87,7 +87,7 @@ body {
 }
 
 /* Matiin animasi di layar medium ke atas (tablet & laptop) */
-@media (min-width: 768px) {
+@media (min-width: 955px) {
   .animate-marquee {
     animation: none;
   }

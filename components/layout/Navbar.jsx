@@ -80,7 +80,7 @@ export default function Navbar({ onBookClick, onScrollToReadingList }) {
           <div className="pr-6">
             <p className="text-2xl text-[#252B42] font-semibold">{navData.brandName}</p>
           </div>
-          <div className="hidden md:flex gap-6">
+          <div className="hidden lg:flex gap-6">
             {navItems.map((item) => (
               item.hasDropdown ? (
                 <Link
@@ -112,7 +112,7 @@ export default function Navbar({ onBookClick, onScrollToReadingList }) {
               )
             ))}
           </div>
-          <div className="hidden md:flex gap-8">
+          <div className="hidden lg:flex gap-8">
             <div className="flex items-center gap-2">
               <AccountIcon className="w-5 h-5 cursor-pointer hover:text-gray-800 transition-colors"/>
               <a className="text-[#23A6F0] text-base font-semibold">Login / <span>Register</span></a>
@@ -164,7 +164,7 @@ export default function Navbar({ onBookClick, onScrollToReadingList }) {
           {/* burger */}
           <button 
             onClick={toggleMenu}
-            className="md:hidden flex flex-col gap-1.5 p-2 focus:outline-none"
+            className="lg:hidden flex flex-col gap-1.5 p-2 focus:outline-none"
             aria-label="Toggle menu">
               <span className={`block h-0.5 bg-gray-700 transition-all duration-300 ml-auto ${isMenuOpen ? 'w-6' : 'w-6'}`}></span>
               <span className={`block h-0.5 bg-gray-700 transition-all duration-300 ml-auto ${isMenuOpen ? 'w-4' : 'w-6'}`}></span>
@@ -172,7 +172,7 @@ export default function Navbar({ onBookClick, onScrollToReadingList }) {
           </button>
         </div>
         {/* isian  */}
-        <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? ' opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? ' opacity-100' : 'max-h-0 opacity-0'}`}>
           <div className="px-4 py-4 space-y-3">
             {navItems.map((item) => (
               <button
