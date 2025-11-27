@@ -92,11 +92,11 @@ export default function SearchModal({ isOpen, onClose, onBookClick }) {
 
   return (
     <div 
-      className="fixed inset-0 z-[9999] bg-black/50 flex items-start justify-center overflow-y-auto"
+      className="fixed inset-0 z-[9999] bg-black/50 flex items-center justify-center p-4 overflow-y-auto"
       onClick={onClose}
     >
       <div 
-        className="bg-white w-full max-w-4xl mt-20 mb-10 rounded-lg shadow-2xl relative"
+        className="bg-white w-full max-w-3xl rounded-lg shadow-2xl relative my-8"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -145,7 +145,7 @@ export default function SearchModal({ isOpen, onClose, onBookClick }) {
             </div>
           ) : hasSearched ? (
             searchResults.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="flex flex-wrap justify-center gap-4">
                 {searchResults.map((book) => (
                   <ProductCard
                     key={book._id || book.id || Math.random()}

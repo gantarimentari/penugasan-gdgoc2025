@@ -6,6 +6,7 @@ import Breadcrumb from "../../components/layout/BreadCrum";
 import FeaturedBook from "../../components/shop/FeaturedBook";
 import BookRecommendation from "../../components/shop/BookRecomendation";
 import BookDetail from "../../components/shop/BookDetail";
+import SearchModal from "../../components/shop/components/SearchModal";
 import { WishlistProvider } from "../../components/context/WishlistContext";
 import { CartProvider } from "../../components/context/CartContext";
 import { getBookDetail } from "../../components/Service/api/bookService";
@@ -16,6 +17,7 @@ export default function Home() {
   const [loadingDetail, setLoadingDetail] = useState(false);
   const [currentBookList, setCurrentBookList] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   // Handlers
   const handleBookClick = async (book, index = null, sourceList = null) => {
@@ -65,6 +67,14 @@ export default function Home() {
     }, 100);
   };
 
+  const handleSearchClick = () => {
+    setIsSearchOpen(true);
+  };
+
+  const handleCloseSearch = () => {
+    setIsSearchOpen(false);
+  };
+
   // Effects
   useEffect(() => {
     if (selectedBook) {
@@ -82,9 +92,17 @@ export default function Home() {
               <TopBar />
               <Navbar 
                 onBookClick={handleBookClick} 
-                onScrollToReadingList={handleScrollToReadingList} 
+                onScrollToReadingList={handleScrollToReadingList}
+                onSearchClick={handleSearchClick}
               />
             </header>
+            
+            {/* Search Modal - Outside header */}
+            <SearchModal 
+              isOpen={isSearchOpen} 
+              onClose={handleCloseSearch}
+              onBookClick={handleBookClick}
+            />
             
             {/* Breadcrumb */}
             <Breadcrumb items={[

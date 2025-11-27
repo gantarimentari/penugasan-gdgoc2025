@@ -2,12 +2,11 @@
 import { useState } from "react";
 import { AccountIcon, SearchIcon, CartIcon, LikeIcon, ChevronDownIcon } from "../Icons";
 import Link from 'next/link';
-import SearchModal from "../shop/components/SearchModal";
 import CartModal from "../shop/components/CartModal";
 import { useWishlist } from "../context/WishlistContext";
 import { useCart } from "../context/CartContext";
 
-export default function Navbar({ onBookClick, onScrollToReadingList }) {
+export default function Navbar({ onBookClick, onScrollToReadingList, onSearchClick }) {
   const { wishlist } = useWishlist();
   const { getTotalItems } = useCart();
 
@@ -15,9 +14,8 @@ export default function Navbar({ onBookClick, onScrollToReadingList }) {
     brandName: "Bookstar",
   });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isShopDropdownOpen, setIsShopDropdownOpen] = useState(false);
+  const [isShopDropdownOpen, setIsShopDropdownOpen] = useState(true);
   
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -30,11 +28,9 @@ export default function Navbar({ onBookClick, onScrollToReadingList }) {
   const handleSearchClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsSearchOpen(true);
-  };
-
-  const handleCloseSearch = () => {
-    setIsSearchOpen(false);
+    if (onSearchClick) {
+      onSearchClick();
+    }
   };
 
   const handleCartClick = (e) => {
@@ -86,20 +82,22 @@ export default function Navbar({ onBookClick, onScrollToReadingList }) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={toggleShopDropdown}
-                  className={`flex items-center gap-1 font-semibold transition-colors font-medium ${
-                    isShopDropdownOpen 
-                      ? 'text-[#252B42]' 
-                      : 'text-[#737373] hover:text-[#252B42]'
-                  }`}
+                  onClick={(e) => {
+                    // Jika di halaman shop, prevent default (tidak toggle)
+                    // Jika di halaman lain, bisa toggle
+                    if (item.href === '/') {
+                      e.preventDefault();
+                    } else {
+                      toggleShopDropdown();
+                    }
+                  }}
+                  className="flex items-center gap-1 font-semibold transition-colors font-medium text-[#252B42]"
                 >
                   {item.label}
-                  {isShopDropdownOpen && (
-                    <ChevronDownIcon 
-                      className="w-4 h-4 transition-transform duration-200"
-                      color="#252B42"
-                    />
-                  )}
+                  <ChevronDownIcon 
+                    className="w-4 h-4 transition-transform duration-200"
+                    color="#252B42"
+                  />
                 </Link>
               ) : (
                 <Link
@@ -240,13 +238,6 @@ export default function Navbar({ onBookClick, onScrollToReadingList }) {
           </div>
         </div>
       </div>
-      
-      {/* Search Modal */}
-      <SearchModal 
-        isOpen={isSearchOpen} 
-        onClose={handleCloseSearch}
-        onBookClick={onBookClick}
-      />
       
       {/* Cart Modal */}
       <CartModal 
