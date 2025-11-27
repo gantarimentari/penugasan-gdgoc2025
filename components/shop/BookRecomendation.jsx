@@ -258,7 +258,7 @@ export default function BookRecommendation({
               </div>
             ) : (
               // Grid layout for non-wishlist
-              <div className={`grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4`}>
+              <div className={`grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center`}>
                 {books.map((book, index) => (
                   <ProductCard
                     key={book._id || book.id || Math.random()}
